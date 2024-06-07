@@ -31,27 +31,40 @@ import { of } from 'rxjs';
 import { authActions } from './actions';
 import { CurrenrUserIntarface } from 'src/app/shared/types/currentUserInterface';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PersistenceService } from 'src/app/shared/services/persistence.service';
 
 @Injectable()
 export class RegisterEffect {
+
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistenceService: PersistenceService
+  ) {}
+
   register$ = createEffect(() => 
     this.actions$.pipe(
       ofType(authActions.register),
       switchMap(({request}) => {
         return this.authService.register(request).pipe(
           map((currentUser: CurrenrUserIntarface) => {
-            return authActions.registerSucess({currentUser})
+            this.persistenceService.set('accessToken', currentUser.token)
+            return authActions.registerSuccess({currentUser})
           }),
-          catchError(() => {
-            return of(authActions.registerFailure())
+      
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              authActions.registerFailure({
+                errors: errorResponse.error.errors,
+              })
+            )
           })
         )
       })
     )
+    
   );
 
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService
-  ) {}
+ 
 }

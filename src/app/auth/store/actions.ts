@@ -1,13 +1,14 @@
-import { createAction, createActionGroup, emptyProps, props } from "@ngrx/store";
+import {  createActionGroup, props } from "@ngrx/store";
 import { RegisterRequestInterface } from "../types/RegisterRequest.interface";
 import { CurrenrUserIntarface } from "src/app/shared/types/currentUserInterface";
+import { BackendErrorsInterface } from "src/app/shared/types/BackendErrors.interface";
 
 export const authActions = createActionGroup({
     source : 'auth',
     events :  {
         Register :  props<{request : RegisterRequestInterface}>(),
-        'Register Sucess' :  props<{currentUser : CurrenrUserIntarface}>(),
-        'Register Failure' :  emptyProps(),
+        'Register Success' :  props<{currentUser : CurrenrUserIntarface}>(),
+        'Register Failure' :  props<{errors : BackendErrorsInterface}>(),
             
     }
   

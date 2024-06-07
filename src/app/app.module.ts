@@ -23,7 +23,7 @@ import { RegisterEffect } from './auth/store/effects';
     EffectsModule.forRoot([]), 
     StoreModule.forFeature(authFeatureKey, authReducer),
     EffectsModule.forFeature([RegisterEffect]),
-        StoreDevtoolsModule.instrument({
+    StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),
       autoPause: true,

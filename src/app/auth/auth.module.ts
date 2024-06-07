@@ -6,11 +6,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { McBackendErrorMessagesComponent } from './components/mc-backend-error-messages/mc-backend-error-messages.component';
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    McBackendErrorMessagesComponent
   ],
   imports: [
     CommonModule,
