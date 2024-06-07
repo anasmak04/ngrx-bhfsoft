@@ -1,4 +1,4 @@
-export interface currenrUserIntarface {
+export interface CurrenrUserIntarface {
     email : string,
     token : string,
     username : string

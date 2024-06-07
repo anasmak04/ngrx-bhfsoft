@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { register } from '../../store/actions';
+import { authActions } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/RegisterRequest.interface';
 import { selectIsSubmitting } from '../../store/reducer';
 import { AuthStateInterface } from '../../types/authStateInterface';
@@ -32,7 +32,7 @@ export class RegisterComponent {
     };
   
     console.log(this.form.getRawValue());
-    this.store.dispatch(register({request} ));
+    this.store.dispatch(authActions.register({request} ));
     this.authservice.register(request).subscribe(res => console.log('res' , res)); 
   }
 

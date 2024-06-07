@@ -1,13 +1,15 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
-import { StoreModule, provideState } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { authFeatureKey, authReducer } from './auth/store/reducer';
-import { HttpClientModule } from '@angular/common/http';
+import { RegisterEffect } from './auth/store/effects';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,15 +19,14 @@ import { HttpClientModule } from '@angular/common/http';
     AuthModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
+    StoreModule.forRoot({}), 
+    EffectsModule.forRoot([]), 
+    StoreModule.forFeature(authFeatureKey, authReducer),
+    EffectsModule.forFeature([RegisterEffect]),
+        StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),
-      features: {
-        pause: true,
-        lock: false,
-        persist: true,
-      }
+      autoPause: true,
     })
   ],
   providers: [],
