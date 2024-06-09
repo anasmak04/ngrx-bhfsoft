@@ -11,6 +11,9 @@ import { authFeatureKey, authReducer } from './auth/store/reducer';
 import { LoginEffect, RegisterEffect, getCurrentUserEffect, redirectAfterLoginEffect, redirectAfterRegisterEffect } from './auth/store/effects';
 import { AuthInterceptorInterceptor } from './shared/services/auth-interceptor.interceptor';
 import { TopbarComponent } from './shared/components/topbar/topbar.component';
+import { GlobalfeedModule } from './globalfeed/globalfeed.module';
+import { feedFeatureKey, feedReducer } from './shared/components/store/reducers';
+import { FeedEffect } from './shared/components/store/effects';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { TopbarComponent } from './shared/components/topbar/topbar.component';
     TopbarComponent,
   ],
   imports: [
+    GlobalfeedModule,
     BrowserModule,
     AuthModule,
     AppRoutingModule,
@@ -25,12 +29,15 @@ import { TopbarComponent } from './shared/components/topbar/topbar.component';
     StoreModule.forRoot({}), 
     EffectsModule.forRoot([]), 
     StoreModule.forFeature(authFeatureKey, authReducer),
+    StoreModule.forFeature(feedFeatureKey, feedReducer),
+
     EffectsModule.forFeature([
       RegisterEffect,
       LoginEffect,
       redirectAfterLoginEffect,
       redirectAfterRegisterEffect,
       getCurrentUserEffect,
+      FeedEffect
     ]),    StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),

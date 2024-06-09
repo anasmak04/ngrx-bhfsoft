@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
     {path : 'register' , loadChildren : () => import("../../src/app/auth/auth.module").then((m) => m.AuthModule)},
-    {path : 'login' , loadChildren : () => import("../../src/app/auth/auth.module").then((m) => m.AuthModule)}
+    {path : 'login' , loadChildren : () => import("../../src/app/auth/auth.module").then((m) => m.AuthModule)},
+    {path : '' , loadChildren : () => import("../../src/app/globalfeed/globalfeed.module").then((m) => m.GlobalfeedModule)}
 ];
 
 
